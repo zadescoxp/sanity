@@ -44,7 +44,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`sticky top-0 z-50 py-4 px-5 xl:px-[10%] flex items-center justify-between bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all
+      className={`sticky top-0 z-50 py-4 px-5 xl:px-[10%] flex items-center justify-between bg-primary transition-all
       ${scrolled ? "border-b" : ""}
     `}
     >
@@ -84,7 +84,7 @@ const Navbar = () => {
       {/* buttons */}
       <div className="hidden lg:flex items-center gap-4 transition-all">
         <Link href="https://discord.com/invite/rUYVa93Svr">
-          <Button variant="outline" className="px-5 rounded-md">
+          <Button variant="outline" className="px-5 bg-primary">
             Join Community
           </Button>
         </Link>
