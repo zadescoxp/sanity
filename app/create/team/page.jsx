@@ -27,6 +27,7 @@ export default function CreateTeamForm() {
   const [players, setPlayers] = useState("");
   const [requests, setRequests] = useState("");
   const [participantCount, setParticipantCount] = useState("");
+  const [preview, setPreview] = useState(false);
 
   const { toast } = useToast();
 
@@ -101,29 +102,88 @@ export default function CreateTeamForm() {
 
   return (
     <div className="flex justify-center items-center">
-      <div className="w-3/4 p-8 space-y-8 rounded-lg shadow-md border">
-        <div className="text-center">
-          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-            Create Team
+      <div className="relative w-3/4 bg-quinary p-8">
+        {/* Preview  */}
+        {preview ? (
+          <div className="w-full bg-quinary p-8 z-10 absolute inset-0">
+            <div className="flex justify-between items-center border-b-2 pb-6">
+              <h1 className="text-4xl font-semibold">Preview</h1>
+              <button onClick={() => setPreview(false)} className="text-xl text-[red]">Close</button>
+            </div>
+
+            <div className="mt-10">
+              <span className="flex justify-start items-end gap-4">
+                <h1 className="text-2xl font-semibold">Team Name: </h1>
+                <p className="font-medium">{teamname || 'No Team Name'}</p>
+              </span>
+              
+              <span className="flex justify-start items-end gap-4">
+                <h1 className="text-2xl font-semibold">Game: </h1>
+                <p className="font-medium">{game || 'No Game'}</p>
+              </span>
+              
+              <span className="flex justify-start items-end gap-4">
+                <h1 className="text-2xl font-semibold">Role: </h1>
+                <p className="font-medium">{role || 'No Role'}</p>
+              </span>
+              
+              <span className="flex justify-start items-end gap-4">
+                <h1 className="text-2xl font-semibold">Rank: </h1>
+                <p className="font-medium">{rank || 'No Rank'}</p>
+              </span>
+              
+              <span className="flex justify-start items-end gap-4">
+                <h1 className="text-2xl font-semibold">Server: </h1>
+                <p className="font-medium">{server || 'No Server'}</p>
+              </span>
+              
+              <span className="flex justify-start items-end gap-4">
+                <h1 className="text-2xl font-semibold">Language: </h1>
+                <p className="font-medium">{language || 'No Language'}</p>
+              </span>
+              
+              <span className="flex justify-start items-end gap-4">
+                <h1 className="text-2xl font-semibold">Players: </h1>
+                <p className="font-medium">{players || 'No Players'}</p>
+              </span>
+              
+              <span className="flex justify-start items-end gap-4">
+                <h1 className="text-2xl font-semibold">Requests: </h1>
+                <p className="font-medium">{requests || 'No Requests'}</p>
+              </span>
+              
+              <span className="flex justify-start items-end gap-4">
+                <h1 className="text-2xl font-semibold">Number of Players: </h1>
+                <p className="font-medium">{participantCount || 'No players added'}</p>
+              </span>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+        <div className="text-center border-b">
+          <h2 className="scroll-m-20 pb-8 text-5xl font-semibold first:mt-0">
+            Create Your Team
           </h2>
-          <p className="mt-2 mb-4 text-sm">
-            Create your team and start competing
-          </p>
         </div>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="mt-12">
             <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
               <FormField
                 control={form.control}
                 name="image"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Image</FormLabel>
+                    <FormLabel className="text-xl">Image</FormLabel>
                     <FormControl>
-                      <Input type="file" {...field} />
+                      <Input
+                        type="file"
+                        className="border-0 outline-none pl-0"
+                        {...field}
+                      />
                     </FormControl>
-                    <FormMessage className="text-red-500" />
+                    <FormMessage className="text-[red]" />
                   </FormItem>
                 )}
               />
@@ -132,10 +192,11 @@ export default function CreateTeamForm() {
                 name="teamname"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Team Name</FormLabel>
+                    <FormLabel className="text-xl">Team Name</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Name of your team"
+                        className="border-0 outline-none p-6 pl-0 border-b-tertiary border-b-4 rounded-none hover:border-b-primary focus:border-b-secondary"
                         {...field}
                         value={teamname}
                         onChange={(e) => {
@@ -144,7 +205,7 @@ export default function CreateTeamForm() {
                         }}
                       />
                     </FormControl>
-                    <FormMessage className="text-red-500" />
+                    <FormMessage className="text-[red]" />
                   </FormItem>
                 )}
               />
@@ -153,10 +214,11 @@ export default function CreateTeamForm() {
                 name="game"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Game</FormLabel>
+                    <FormLabel className="text-xl">Game</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Game you play"
+                        className="border-0 outline-none p-6 pl-0 border-b-tertiary border-b-4 rounded-none hover:border-b-primary focus:border-b-secondary"
                         {...field}
                         value={game}
                         onChange={(e) => {
@@ -165,7 +227,7 @@ export default function CreateTeamForm() {
                         }}
                       />
                     </FormControl>
-                    <FormMessage className="text-red-500" />
+                    <FormMessage className="text-[red]" />
                   </FormItem>
                 )}
               />
@@ -174,10 +236,11 @@ export default function CreateTeamForm() {
                 name="role"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Role</FormLabel>
+                    <FormLabel className="text-xl">Role</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Role in the game"
+                        className="border-0 outline-none p-6 pl-0 border-b-tertiary border-b-4 rounded-none hover:border-b-primary focus:border-b-secondary"
                         {...field}
                         value={role}
                         onChange={(e) => {
@@ -186,7 +249,7 @@ export default function CreateTeamForm() {
                         }}
                       />
                     </FormControl>
-                    <FormMessage className="text-red-500" />
+                    <FormMessage className="text-[red]" />
                   </FormItem>
                 )}
               />
@@ -195,10 +258,11 @@ export default function CreateTeamForm() {
                 name="rank"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Rank</FormLabel>
+                    <FormLabel className="text-xl">Rank</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Your rank"
+                        className="border-0 outline-none p-6 pl-0 border-b-tertiary border-b-4 rounded-none hover:border-b-primary focus:border-b-secondary"
                         {...field}
                         value={rank}
                         onChange={(e) => {
@@ -207,7 +271,7 @@ export default function CreateTeamForm() {
                         }}
                       />
                     </FormControl>
-                    <FormMessage className="text-red-500" />
+                    <FormMessage className="text-[red]" />
                   </FormItem>
                 )}
               />
@@ -216,10 +280,11 @@ export default function CreateTeamForm() {
                 name="server"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Server</FormLabel>
+                    <FormLabel className="text-xl">Server</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Preferred server"
+                        className="border-0 outline-none p-6 pl-0 border-b-tertiary border-b-4 rounded-none hover:border-b-primary focus:border-b-secondary"
                         {...field}
                         value={server}
                         onChange={(e) => {
@@ -228,7 +293,7 @@ export default function CreateTeamForm() {
                         }}
                       />
                     </FormControl>
-                    <FormMessage className="text-red-500" />
+                    <FormMessage className="text-[red]" />
                   </FormItem>
                 )}
               />
@@ -237,10 +302,11 @@ export default function CreateTeamForm() {
                 name="language"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Language</FormLabel>
+                    <FormLabel className="text-xl">Language</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Language you speak"
+                        className="border-0 outline-none p-6 pl-0 border-b-tertiary border-b-4 rounded-none hover:border-b-primary focus:border-b-secondary"
                         {...field}
                         value={language}
                         onChange={(e) => {
@@ -249,7 +315,7 @@ export default function CreateTeamForm() {
                         }}
                       />
                     </FormControl>
-                    <FormMessage className="text-red-500" />
+                    <FormMessage className="text-[red]" />
                   </FormItem>
                 )}
               />
@@ -258,10 +324,11 @@ export default function CreateTeamForm() {
                 name="players"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Players</FormLabel>
+                    <FormLabel className="text-xl">Players</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="player_1 , player_2 , ..."
+                        className="border-0 outline-none p-6 pl-0 border-b-tertiary border-b-4 rounded-none hover:border-b-primary focus:border-b-secondary"
                         {...field}
                         value={players}
                         onChange={(e) => {
@@ -270,7 +337,7 @@ export default function CreateTeamForm() {
                         }}
                       />
                     </FormControl>
-                    <FormMessage className="text-red-500" />
+                    <FormMessage className="text-[red]" />
                   </FormItem>
                 )}
               />
@@ -279,10 +346,11 @@ export default function CreateTeamForm() {
                 name="requests"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Requests</FormLabel>
+                    <FormLabel className="text-xl">Requests</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Special requests"
+                        className="border-0 outline-none p-6 pl-0 border-b-tertiary border-b-4 rounded-none hover:border-b-primary focus:border-b-secondary"
                         {...field}
                         value={requests}
                         onChange={(e) => {
@@ -291,7 +359,7 @@ export default function CreateTeamForm() {
                         }}
                       />
                     </FormControl>
-                    <FormMessage className="text-red-500" />
+                    <FormMessage className="text-[red]" />
                   </FormItem>
                 )}
               />
@@ -300,11 +368,14 @@ export default function CreateTeamForm() {
                 name="participantCount"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Number of Participants</FormLabel>
+                    <FormLabel className="text-xl">
+                      Number of Participants
+                    </FormLabel>
                     <FormControl>
                       <Input
                         type="number"
                         placeholder="Number of participants"
+                        className="border-0 outline-none p-6 pl-0 border-b-tertiary border-b-4 rounded-none hover:border-b-primary focus:border-b-secondary"
                         {...field}
                         value={participantCount}
                         onChange={(e) => {
@@ -313,13 +384,30 @@ export default function CreateTeamForm() {
                         }}
                       />
                     </FormControl>
-                    <FormMessage className="text-red-500" />
+                    <FormMessage className="text-[red]" />
                   </FormItem>
                 )}
               />
             </div>
-            <div className="flex justify-center">
-              <Button type="submit">Create</Button>
+            <div className="flex justify-center gap-10 mt-10">
+              <button
+                className="group relative bg-tertiary overflow-hidden px-8 py-4 font-semibold"
+                onClick={() => setPreview(true)}
+              >
+                <p className="text-primary relative inset-0 group-hover:text-tertiary z-[1]">
+                  Preview
+                </p>
+                <div className="absolute left-0 top-[100%] bg-primary w-full h-full group-hover:top-0 transition-all z-0"></div>
+              </button>
+              <button
+                type="submit"
+                className="group relative bg-tertiary overflow-hidden px-8 py-4 font-semibold"
+              >
+                <p className="text-primary relative inset-0 group-hover:text-tertiary z-[1]">
+                  Create
+                </p>
+                <div className="absolute left-0 -top-[100%] bg-primary w-full h-full group-hover:top-0 transition-all z-0"></div>
+              </button>
             </div>
           </form>
         </Form>
